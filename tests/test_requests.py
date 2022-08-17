@@ -1,4 +1,3 @@
-from unittest import TestCase
 import pytest
 import coverage
 import req

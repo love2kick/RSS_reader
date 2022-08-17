@@ -1,5 +1,5 @@
 import argparse
-from urllib.error import URLError
+import logging
 url:str
 limit:int
 verb=False
@@ -31,6 +31,4 @@ def arguments() -> None:
         global jtype
         jtype = True
     if args.verbose:
-        global verb
-        verb = True
-        print('Verbose turned on!')
+        logging.basicConfig(level=logging.INFO)
