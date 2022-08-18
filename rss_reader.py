@@ -81,9 +81,15 @@ class RSSReader(object):
                 xmlstr+='<description>'+self.tag_helper(desc).replace('&', '&amp;')+'</description>'
                 xmlstr+='</item>'
             xmlstr+='</items></content>'
+            logging.info(f'Converting XML string into dictionary...')
             xmldict=xmltodict.parse(xmlstr)
+            logging.info(f'Converting dictionary into JSON...')
+            jfile=json.dumps(xmldict, indent = 4)
+            logging.info(f'Writing JSON into a file(default=temp/temp.json)')
             with open('temp/temp.json', 'w') as e:
-                e.writelines(json.dumps(xmldict, indent = 4))
+                e.writelines(jfile)
+            logging.info(f'Finished!')
+        return jfile
         
 if __name__=="__main__":
     r=RSSReader(args.url)
