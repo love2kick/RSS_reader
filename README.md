@@ -1,9 +1,9 @@
-RSS-Reader.
+**RSS-Reader.**
 
-Usage:
+_ _Usage:_ _
 rss_reader.py %YOUR URL%
 
-options:
+_ _options:_ _
   -h, --help     show this help message and exit  
   --version      Print version info  
   --json         Print result as JSON in stdout  
@@ -12,7 +12,7 @@ options:
 
 
 
-JSON structure:  
+_ _JSON structure:  _ _
 {  
     "content": {  
         "Feed": "%FeedName%",  
