@@ -15,14 +15,12 @@ _ _JSON structure:_ _
     "content": {  
         "Feed": "%FeedName%",  
         "items": {  
-            "item": [  
-                {  
-                    "title": "%ArticleTitle%",  
-                    "date": "%PublishingDate%",  
-                    "link": "%ArticleLink%",  
-                    "description": "%ArticleDescription%"  
-                },  
-            ]  
+            "item_%NUM%": {  
+                "title": "%title%",  
+                "date": "%date%",  
+                "link": "%link%",  
+                "description": "%desc%"  
+            },  
         }  
     }  
 }  

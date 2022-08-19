@@ -1,21 +1,67 @@
 {
     "content": {
-        "Feed": "Crime Junkie",
+        "Feed": "The Daily",
         "items": {
-            "item": [
-                {
-                    "title": "ALL GOOD PEOPLE HERE\u2026IS HERE!!",
-                    "date": "Tue, 16 Aug 2022 07:00:00 +0000",
-                    "link": "https://www.ashleyflowers.com/book",
-                    "description": "The day has FINALLY arrived, Crime Junkies!! Ashley Flowers\\' debut novel ALL GOOD PEOPLE HERE is officially available NOW!If you haven\u2019t already, go get your hands on a copy! You can find ALL GOOD PEOPLE HERE wherever books, ebooks, or audiobooks are sold or at AshleyFlowers.com/bookBe sure to follow us on Instagram at @crimejunkiepodcast to get in on all of the fun book conversations... AND if you love the book as much as we think you will, leave a review so we can see all of your thoughts & theories.Happy reading, Crime Junkies!For more information about all things Ashley and All Good People Here, visit AshleyFlowers.comNorth America Crime Junkies can order here:https://www.penguinrandomhouse.com/books/691141/all-good-people-here-by-ashley-flowers/UK + Commonwealth Crime Junkies can order here:https://www.amazon.co.uk/All-Good-People-Here-gripping/dp/0008503109/ref=tmm_hrd_swat[%E2%80%A6]encoding=UTF8&qid=1641811155&sr=1-1&tag=linkfire-smarturl-21"
-                },
-                {
-                    "title": "MURDERED: Shari Smith and Debra Helmick",
-                    "date": "Mon, 15 Aug 2022 07:00:00 +0000",
-                    "link": "https://crimejunkiepodcast.com/",
-                    "description": "When 17-year-old Shari Smith is abducted from her driveway in broad daylight, it seems like her family\u2019s nightmare can\u2019t get any worse. But when her abductor starts calling them relentlessly, investigators hope that his recklessness will lead to his downfall... that is, until a second girl goes missing in an eerily similar manner.John Douglas\\' bookWhen a Killer CallsFor current Fan Club membership options and policies, please visit https://crimejunkieapp.com/library/.Source materials for this episode cannot be listed here due to character limitations. For a full list of sources, please visit: https://crimejunkiepodcast.com/murdered-shari-smith-debra-helmick/"
-                }
-            ]
+            "item_0": {
+                "title": "Cosmic Questions",
+                "date": "Fri, 19 Aug 2022 09:45:00 +0000",
+                "link": "https://www.nytimes.com/the-daily",
+                "description": "What is a black hole? Why do we remember the past but not the future? If time had a beginning, does it have an end?  We don't have the answers to some of the universe's biggest questions. What we do know often feels bleak, such as the notion that in a billion years there will most likely be no life on Earth. Or the reality that someday the entire human race will probably be forgotten.  Nonetheless, people search for answers. These are some of the cosmic questions that haunt the human experience.  Guest:  Dennis Overbye , the cosmic affairs correspondent for The New York Times.  Background reading:    When the largest space observatory ever built sent its images back to Earth,  here's what astronomers saw .  In space you can't hear a black hole scream, but apparently you can hear it sing.  Hear what that sounds like .   For more information on today's episode, visit  nytimes.com/thedaily . Transcripts of each episode will be made available by the next workday."
+            },
+            "item_1": {
+                "title": "About Those Documents at Mar-a-Lago",
+                "date": "Thu, 18 Aug 2022 09:40:00 +0000",
+                "link": "https://www.nytimes.com/the-daily",
+                "description": "Last week, the F.B.I. took the extraordinary step of searching Mar-a-Lago, former President Donald J. Trump's private club and Florida home. Their goal? To find materials he was thought to have improperly removed from the White House, including classified documents.  An inventory of the material taken from the search showed that agents seized 11 sets of documents with some type of confidential or secret marking on them.  We explore some of the latest developments in the case.  Guest:  Maggie Haberman , a White House correspondent for The New York Times.  Background reading:    Mr. Trump and his allies have given often conflicting defenses of his retention of classified documents. These shifting explanations  follow a familiar playbook .  The Justice Department's  warrant for the search and two critical supporting memos  shed considerable light on the Mar-a-Lago investigation.  Here's a timeline of the  former president's false and misleading statements  on the search.   For more information on today's episode, visit  nytimes.com/thedaily .  Transcripts of each episode will be made available by the next workday."
+            },
+            "item_2": {
+                "title": "The Summer of Airline Chaos",
+                "date": "Wed, 17 Aug 2022 09:45:00 +0000",
+                "link": "https://www.nytimes.com/the-daily",
+                "description": "Across the United States, airline travel this summer has been roiled by canceled flights, overbooked planes, disappointment and desperation.  Two and a half years after the pandemic began and with restrictions easing, why is flying still such an unpleasant experience?  Guest:  Niraj Chokshi , a business reporter for The New York Times.  Background reading:    The question for many travelers is whether they can trust airlines to get them where they want to go on time. Here is what to know about the  air travel mess .  Travelers on both sides of the Atlantic have endured long lines, delays or cancellations, and plenty of frustration.  Is this the new normal?    For more information on today's episode, visit  nytimes.com/thedaily .  Transcripts of each episode will be made available by the next workday."
+            },
+            "item_3": {
+                "title": "The Taliban Takeover, One Year Later",
+                "date": "Tue, 16 Aug 2022 09:45:00 +0000",
+                "link": "https://www.nytimes.com/the-daily",
+                "description": "One year ago this week, when the Taliban retook control of Afghanistan, they promised to institute a modern form of Islamic government that honored women's rights.  That promise evaporated with a sudden decision to prohibit girls from going to high school, prompting questions about which part of the Taliban is really running the country.  Guest: Matthieu Aikins, a writer based in Afghanistan for The New York Times and the author of \"The Naked Don't Fear the Water: An Underground Journey with Afghan Refugees.\"  Background reading:    After  barring girls from high school  - and harboring a leader of Al Qaeda - the Taliban risks jeopardizing the billions of dollars of global aid that keeps Afghans alive.   For more information on today's episode, visit    nytimes.com/thedaily   . Transcripts of each episode will be made available by the next workday."
+            },
+            "item_4": {
+                "title": "The Tax Loophole That Won't Die",
+                "date": "Mon, 15 Aug 2022 09:50:00 +0000",
+                "link": "https://www.nytimes.com/the-daily",
+                "description": "Carried interest is a loophole in the United States tax code that has stood out for its egregious unfairness and stunning longevity.   Typically, the richest of the rich pay 40 percent tax on their income. The very narrow, select group that benefits from carried interest pays only 20 percent.   Earlier versions of the Inflation Reduction Act targeted carried interest. But the loophole has survived. Senator Kyrsten Sinema, Democrat of Arizona, demanded her party get rid of efforts to eliminate it in exchange for her support.   How has the carried interest loophole lasted so long despite its obvious unfairness?   Guest:  Andrew Ross Sorkin , a columnist for The New York Times and the founder and editor-at-large of DealBook.  Background reading:     What is the carried interest loophole  and why hasn't it been closed by now?  Ms. Sinema's  puzzling defense  of the loophole.   For more information on today's episode, visit  nytimes.com/thedaily . Transcripts of each episode will be made available by the next workday."
+            },
+            "item_5": {
+                "title": "The Sunday Read: 'How One Restaurateur Transformed America's Energy Industry'",
+                "date": "Sun, 14 Aug 2022 10:00:00 +0000",
+                "link": "https://www.nytimes.com/the-daily",
+                "description": "It was a long-shot bet on liquid natural gas, but it paid off handsomely - and turned the United States into a leading fossil-fuel exporter.  The journalist Jake Bittle delves into the storied career of Charif Souki, the Lebanese American entrepreneur whose aptitude for risk changed the course of the American energy business.  The article outlines how Mr. Souki rose from being a Los Angeles restaurant owner to becoming the co-founder and chief executive of Cheniere Energy, an oil and gas company that specialized in liquefied natural gas, and provides an insight into his thought process: \"As Souki sees it,\" Mr. Bittle writes, \"the need to provide the world with energy in the short term outweighs the long-term demand of acting on carbon emissions.\"  In a time of acute climate anxiety, Mr. Souki's rationale could strike some as outdated, even brazen. The world may be facing energy and climate crises, Mr. Souki told The New York Times, \"but one is going to happen this month, and the other one is going to happen in 40 years.\"  \"If you tell somebody, 'You are going to run out of electricity this month,' and then you talk to the same person about what's going to happen in 40 years,\" he said, \"they will tell you, 'What do I care about 40 years from now?'\"    This story was written by Jake Bittle and recorded by Audm . To hear more audio stories from publications like The New York Times,    download Audm for iPhone or Android   ."
+            },
+            "item_6": {
+                "title": "Boy Scouts or Girl Scouts?",
+                "date": "Fri, 12 Aug 2022 09:45:00 +0000",
+                "link": "https://www.nytimes.com/the-daily",
+                "description": "Five years ago, after decades of resistance, the Boy Scouts of America made a momentous change, allowing girls to participate. Since then, tens of thousands have joined.  Today we revisit a story, first aired in 2017, about 10-year-old twins deciding which group to join, and find out what's happened to them since.  Background reading:    In 2017,  the decision to open up the Boy Scouts  was celebrated by many women but criticized by the Girl Scouts, which said that girls flourish in all-female groups.   For more information on today's episode, visit  nytimes.com/thedaily . Transcripts of each episode will be made available by the next workday."
+            },
+            "item_7": {
+                "title": "Pregnant at 16",
+                "date": "Thu, 11 Aug 2022 09:50:00 +0000",
+                "link": "https://www.nytimes.com/the-daily",
+                "description": "This episode contains strong language and descriptions of an abortion.   With the end of Roe v. Wade, Louisiana has become one of the most difficult places in the United States to get an abortion. The barriers are expected to disproportionately affect Black women, the largest group to get abortions in the state.  Today, we speak to Tara Wicker and Lakeesha Harris, two women in Louisiana whose lives led them to very different positions in the fight over abortion access.  Background reading:    The Supreme Court decision to reverse Roe, far from settling the matter, has  kindled court and political battles  that are likely to go on for years.   For more information on today's episode, visit  nytimes.com/thedaily . Transcripts of each episode will be made available by the next workday."
+            },
+            "item_8": {
+                "title": "The F.B.I. Search of Trump's Home",
+                "date": "Wed, 10 Aug 2022 09:45:00 +0000",
+                "link": "https://www.nytimes.com/the-daily",
+                "description": "On Monday, federal agents descended on Mar-a-Lago, the private club and Florida home of former President Donald J. Trump, reportedly looking for classified documents and presidential papers.  Trump supporters expressed outrage about the agency's actions, while many Democrats reacted with glee. But what do we know about the search, and what comes next?  Guest:  Maggie Haberman , a White House correspondent for The New York Times.  Background reading:    The search at Mar-a-Lago was  the culmination of a lengthy conflict  between a president proud of his disdain for rules and officials charged with protecting the nation's records and secrets.  Experts say that the Justice Department would have carefully weighed the decision to carry out the search, suggesting that the  investigation is serious and fairly advanced .   Here is the timeline  leading up to the search.   For more information on today's episode, visit  nytimes.com/thedaily . Transcripts of each episode will be made available by the next workday."
+            },
+            "item_9": {
+                "title": "How Democrats Salvaged a History-Making Bill",
+                "date": "Tue, 9 Aug 2022 09:50:00 +0000",
+                "link": "https://www.nytimes.com/the-daily",
+                "description": "This weekend, Democrats passed legislation that would make historic investments to fight climate change and lower the cost of prescription drugs - paid for by raising taxes on businesses.  How did the party finally make progress on the bill, and what effects will it have?  Guest:  Emily Cochrane , a Washington-based correspondent for The New York Times.  Background reading:    Here's what is in  the climate, tax and health care package .  How Senator Joe Manchin turned from  a holdout into a deal maker .   For more information on today's episode, visit  nytimes.com/thedaily . Transcripts of each episode will be made available by the next workday."
+            }
         }
     }
 }
