@@ -1,7 +1,7 @@
 **RSS-Reader.**
   
 _ _Usage:_ _  
-rss_reader.py %YOUR URL%
+rss_reader.py %YOUR URL% OPTIONS  
   
 _ _options:_ _  
   -h, --help     show this help message and exit  
@@ -13,7 +13,7 @@ _ _options:_ _
 _ _JSON structure:_ _  
 {  
     "content": {  
-        "Feed": "%FeedName%",  
+        "feed": "%FeedName%",  
         "items": {  
             "item_%NUM%": {  
                 "title": "%title%",  
@@ -24,3 +24,5 @@ _ _JSON structure:_ _
         }  
     }  
 }  
+
+Unitests provided by pytest. To run test run pytest tests.  

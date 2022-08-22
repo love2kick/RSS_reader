@@ -1,5 +1,7 @@
 import argparse
 import logging
+import warnings
+from tkinter import E
 url:str
 limit:int
 verb=False
@@ -9,7 +11,7 @@ def arguments() -> None:
         URL a mandatory arg for source url
         --version - programm version
         --json - returns output in JSON format
-        --verbose - adds some spice verbose
+        --verbose - adds some spicy verbose
         --limit - the amount of topics to show"""
     parser = argparse.ArgumentParser()
     parser.add_argument('URL', metavar='source', action='store', type=str,
@@ -32,3 +34,5 @@ def arguments() -> None:
         jtype = True
     if args.verbose:
         logging.basicConfig(level=logging.INFO)
+    else:
+        warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
