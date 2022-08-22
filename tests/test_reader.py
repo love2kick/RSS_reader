@@ -1,4 +1,3 @@
-from email import contentmanager
 from urllib import request
 import pytest
 import coverage
