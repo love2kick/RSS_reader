@@ -1,6 +1,6 @@
 import pytest
 import coverage
-import req
+import helper
 import requests
 
 @pytest.fixture()
@@ -14,11 +14,20 @@ def return_content(monkeypatch):
     
 def test_request_normallink():
     '''INTERNET CONNECTION REQUIRED FOR THIS TEST'''
-    assert req.request('http://google.com') == 200
+    assert helper.request('http://google.com') == 200
 
 def test_return_content(return_content):
-    assert req.request_content(return_content)=="This is content!"
+    assert helper.request_content(return_content)=="This is content!"
 
 def test_connection_error_exception(return_content):
     with pytest.raises(SystemExit):
-        req.request(return_content)
+        helper.request(return_content)
+        
+def test_string_formating():
+        badstring=r'\n'+'<sometags>\u201cyes\u201d</sometags>'
+        assert helper.format_helper(badstring)=='"yes"'
+        
+def test_xml_checker():
+        badxml='''<root><title>roottitle<title></root>'''
+        with pytest.raises(SystemExit):
+            helper.xml_checker(badxml)
