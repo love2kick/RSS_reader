@@ -16,7 +16,7 @@ def arguments() -> None:
     parser.add_argument('URL', metavar='source', action='store', type=str,
                         help='RSS URL')
     parser.add_argument('--version', action='version',
-                        version='Fancy RSS reader: version 0.1', help='Print version info')
+                        version='Fancy RSS reader: version 0.2', help='Print version info')
     parser.add_argument('--json', action='store_true',
                         help='Print result as JSON in stdout')
     parser.add_argument('--verbose', action='store_true',
