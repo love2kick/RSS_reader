@@ -1,5 +1,4 @@
 import pytest
-import coverage
 import helper
 import requests
 
