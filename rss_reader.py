@@ -11,12 +11,12 @@ args.arguments()
 
 class RSSReader(object):
     """Main reader class.
-    It reads from arguments URL link,
-    sprinkles some magic and boom:
-    you have an rss feed in your console/.json file"""
+    It reads from URL argument link,
+    then parses xml string and extracts feed
+    into console as direct print or json"""
     def __init__(self, url, limit=None) -> None:
         self.url=url
-        if args.limit!=None:  #if --limit doesn't set it takes default value -1
+        if args.limit!=None:  #if --limit doesn't set it takes default value
             limit=args.limit
         self.limit=limit
         if args.jtype==False: #decides which output should go out depending on --json arg

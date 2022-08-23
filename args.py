@@ -1,7 +1,6 @@
 import argparse
 import logging
 import warnings
-from tkinter import E
 url:str
 limit:int
 verb=False

@@ -48,6 +48,7 @@ def check_url_syntax(url:str)->str:
         return url
 
 def xml_checker(feed):
+    '''Tries to convert string to xml'''
     try:
         xml=etree.fromstring(feed)
         return xml

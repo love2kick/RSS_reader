@@ -1,6 +1,4 @@
-from urllib import request
 import pytest
-import coverage
 from rss_reader import RSSReader
 from lxml import etree
 import requests
