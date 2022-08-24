@@ -85,6 +85,8 @@ class RSSReader(object):
             print (jdic)
             logging.info(f'Finished!')
             return jdic
-        
+def main():
+    RSSReader()
+    
 if __name__=="__main__":
-    r=RSSReader()
+    main()
