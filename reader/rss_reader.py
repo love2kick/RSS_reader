@@ -14,11 +14,12 @@ class RSSReader(object):
     It reads from URL argument link,
     then parses xml string and extracts feed
     into console as direct print or json"""
-    def __init__(self, url, limit=None) -> None:
-        self.url=url
+    def __init__(self) -> None:
+        self.url=args.url
         if args.limit!=None:  #if --limit doesn't set it takes default value
-            limit=args.limit
-        self.limit=limit
+            self.limit=args.limit
+        else:
+            self.limit=None
         if args.jtype==False: #decides which output should go out depending on --json arg
             self.run()
         else:
@@ -82,4 +83,4 @@ class RSSReader(object):
             return jdic
         
 if __name__=="__main__":
-    r=RSSReader(args.url)
+    r=RSSReader()
