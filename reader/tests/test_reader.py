@@ -1,5 +1,5 @@
 import pytest
-from rss_reader import RSSReader
+from reader.rss_reader import RSSReader
 from lxml import etree
 import requests
 

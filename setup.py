@@ -16,6 +16,7 @@ setup(
     entry_points={
         'console_scripts': ['RSS_reader=reader.rss_reader:main']
     },
+    setup_require=['pytest-runner'],
     tests_require=['pytest'],
     
 )
