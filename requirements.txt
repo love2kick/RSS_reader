@@ -1,7 +1,5 @@
 requests
 beautifulsoup4
-pytest
-re
-unicodedata
 lxml
 xmltodict
+pytest

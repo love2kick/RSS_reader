@@ -7,13 +7,11 @@ setup(
     install_requires=[
         'requests',
         'beautifulsoup4',
-        're',
-        'unicodedata',
         'lxml',
         'xmltodict'
     ],
     entry_points={
-        'console_scripts': ['rss_reader=main.rss_reader.py']
+        'console_scripts': ['rss_reader=main.rss_reader']
     },
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
