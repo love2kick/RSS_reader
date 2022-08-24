@@ -5,8 +5,8 @@ setup(
     version='0.2',
     description='Fancy RSS-reader',
     author='DB',
-    package_dir={'':'src'},
-    packages=find_packages(include=['src', 'src.*']),
+    packages=find_packages(include=['reader'],
+                           exclude=['reader.tests']),
     install_requires=[
         'requests',
         'beautifulsoup4',
@@ -14,7 +14,7 @@ setup(
         'xmltodict'
     ],
     entry_points={
-        'console_scripts': ['RSS_reader=src.rss_reader']
+        'console_scripts': ['RSS_reader=reader.rss_reader:main']
     },
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
