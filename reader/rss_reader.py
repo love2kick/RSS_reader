@@ -1,13 +1,17 @@
-import args
-from helper import (request, request_content, 
+import sys
+import os
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
+import reader.argums as argums
+from reader.helper import (request, request_content, 
                     format_helper, check_url_syntax,
                     xml_checker)
 import logging
 import json
-from lxml import etree
 import xmltodict
 
-args.arguments()
+argums.arguments()
 
 class RSSReader(object):
     """Main reader class.
@@ -15,12 +19,12 @@ class RSSReader(object):
     then parses xml string and extracts feed
     into console as direct print or json"""
     def __init__(self) -> None:
-        self.url=args.url
-        if args.limit!=None:  #if --limit doesn't set it takes default value
-            self.limit=args.limit
+        self.url=argums.url
+        if argums.limit!=None:  #if --limit doesn't set it takes default value
+            self.limit=argums.limit
         else:
             self.limit=None
-        if args.jtype==False: #decides which output should go out depending on --json arg
+        if argums.jtype==False: #decides which output should go out depending on --json arg
             self.run()
         else:
             self.json_run()

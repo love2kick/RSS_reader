@@ -1,5 +1,5 @@
 import pytest
-import helper
+import reader.helper as helper
 import requests
 
 @pytest.fixture()
