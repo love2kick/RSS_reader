@@ -10,8 +10,7 @@ setup(
         're',
         'unicodedata',
         'lxml',
-        'xmltodict',
-        'json'
+        'xmltodict'
     ],
     entry_points={
         'console_scripts': ['rss_reader=main.rss_reader.py']
