@@ -5,4 +5,3 @@ re
 unicodedata
 lxml
 xmltodict
-json
