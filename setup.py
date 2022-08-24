@@ -14,7 +14,7 @@ setup(
         'xmltodict'
     ],
     entry_points={
-        'console_scripts': ['RSS_reader=reader.rss_reader:main']
+        'console_scripts': ['RSS_reader=reader.rss_reader:RSSReader']
     },
     setup_require=['pytest-runner'],
     tests_require=['pytest'],
