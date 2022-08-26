@@ -15,21 +15,18 @@ import xmltodict
 argums.arguments()
 
 class RSSReader(object):
-    conn=Connector()
     """Main reader class.
     It reads from URL argument link,
     then parses xml string and extracts feed
     into console as direct print or json"""
     def __init__(self) -> None:
+        self.conn=Connector()
         self.url=argums.url
-        if argums.limit!=None:  #if --limit doesn't set it takes default value
-            self.limit=argums.limit
-        else:
-            self.limit=None
+        self.limit=argums.limit
         if argums.date!=None:
-            self.extract_from_base(argums.date)
+            self.extract_from_db(argums.date)
         else:
-            self.url=check_url_syntax(self.url)
+            self.url=check_url_syntax(self.url) #checking url syntax and adding http:// if needed
             if request(self.url)==200:
                 self.feed=xml_checker(request_content(self.url))  #form xml tree from request string
                 if argums.jtype==False: #decides which output should go out depending on --json arg
@@ -66,7 +63,7 @@ class RSSReader(object):
         """Creates a dictionary from content and creates a dictionary
         that convertes into json file"""
         feedname=self.feed.xpath(".//title/text()")[0]
-        
+        self.conn.create_table(feedname)
         xmlstr=('<content><feed>'+
                 feedname+
                 '</feed><items>')   #forming new xml string from tree
@@ -84,7 +81,13 @@ class RSSReader(object):
         jdic=json.dumps(xmltodict.parse(xmlstr), indent = 4)
         print (jdic)
         logging.info(f'Finished!')
-    #def extract_from_base(self, date):
+        
+    def extract_from_db(self):
+        date=argums.date
+        tables=self.conn.extract_tables()
+        for i in self.conn.extract_data(tables,date):
+            if i != None:
+                yield i
         
 if __name__=="__main__":
     RSSReader()
