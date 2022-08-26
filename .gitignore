@@ -130,5 +130,7 @@ dmypy.json
 #vscode stuff
 .vscode
 .vscode/
-# Temp .xml documents
+# Temp files
 *.xml
+cache
+cache*

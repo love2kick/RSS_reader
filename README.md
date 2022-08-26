@@ -26,3 +26,8 @@ _ _JSON structure:_ _
 }  
 
 Unitests provided by pytest. To run test run pytest tests.  
+  
+Installation:  
+Run _ _pip install ._ _  
+  
+After installation you can run RSS_reader %OPTIONS% from console.

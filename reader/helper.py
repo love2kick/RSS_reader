@@ -1,20 +1,26 @@
 import requests
 import unicodedata
 import re
+import logging
 from lxml import etree
 from bs4 import BeautifulSoup
 
 def request(url):
     '''checks request status code, returns code value'''
-    r=requests.get(url)
-    code=r.status_code
     try:
+        r=requests.get(url)
+        code=r.status_code
+        logging.info(f'Checking connection to {url}...')
         if code!=200:
             raise ConnectionError
         else:
             return code
     except ConnectionError:
-        print(f"Request status code not 200 (code: {code}). Exiting")
+        print(f"Request status code not 200 (code: {code}). Exiting...")
+        raise SystemExit()
+    except (requests.exceptions.MissingSchema, 
+            requests.exceptions.ConnectionError):
+        print(f"Bad URL. Exiting...")
         raise SystemExit()
     
 def request_content(url):
@@ -38,17 +44,20 @@ def format_helper(string) -> str:
 
 def check_url_syntax(url:str)->str:
     '''Checking url syntax and trying to fix it'''
+    logging.info(f'Checking URL...')
     try:
         if url.startswith("http")==False:
             raise Exception("Wrong url syntax!")
     except Exception:
-            print(f"{url} doesn't have required prefix. Trying to add one.")
+            logging.info(f"{url} doesn't have required prefix. Trying to add one.")
             url="http://"+url
     finally:
         return url
 
 def xml_checker(feed):
     '''Tries to convert string to xml'''
+    logging.info(f'Scrapping data from feed...')
+    logging.info(f'Checking XML structure...')
     try:
         xml=etree.fromstring(feed)
         return xml
