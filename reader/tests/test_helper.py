@@ -1,6 +1,7 @@
 import pytest
-import reader.helper as helper
+import helper
 import requests
+from dbconnector import dateconvert
 
 @pytest.fixture()
 def return_content(monkeypatch):
@@ -13,7 +14,7 @@ def return_content(monkeypatch):
     
 def test_request_normallink():
     '''INTERNET CONNECTION REQUIRED FOR THIS TEST'''
-    assert helper.request('http://google.com') == 200
+    assert helper.request('https://google.com') == 200
 
 def test_return_content(return_content):
     assert helper.request_content(return_content)=="This is content!"
@@ -30,3 +31,7 @@ def test_xml_checker():
         badxml='''<root><title>roottitle<title></root>'''
         with pytest.raises(SystemExit):
             helper.xml_checker(badxml)
+
+def test_convert_date():
+    date1="Wed, 24 Aug 2022 07:05:00 +0000"
+    assert dateconvert(date1)=='2022-08-24'

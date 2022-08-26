@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='fancy_rss_reader',
-    version='0.2',
+    version='0.3',
     description='Fancy RSS-reader',
     author='DB',
     packages=find_packages(exclude=['tests']),

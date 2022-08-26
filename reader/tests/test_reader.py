@@ -1,5 +1,5 @@
 import pytest
-from reader.rss_reader import RSSReader
+from rss_reader import RSSReader
 from lxml import etree
 import requests
 
@@ -22,5 +22,5 @@ def mocked_get(monkeypatch):
     
 class TestReader():
     def test_feed_extraction(self, mocked_get):
-        for i in RSSReader('url').feed_extraction(etree.fromstring(requests.get().content)):
+        for i in RSSReader().feed_extraction(etree.fromstring(requests.get().content), "name"):
             assert i==('title', 'date', 'link','desc')
