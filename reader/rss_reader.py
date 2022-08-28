@@ -28,7 +28,7 @@ class RSSReader(object):
         else:
             self.url=check_url_syntax(self.url) #checking url syntax and adding http:// if needed
             if request(self.url)==200:
-                self.feed=xml_checker(request_content(self.url))  #form xml tree from request string
+                self.feed=xml_checker(request_content(self.url))  #form xml tree from request content
                 if argums.jtype==False: #decides which output should go out depending on --json arg
                     self.run()
                 else:
@@ -44,13 +44,18 @@ class RSSReader(object):
             desc=format_helper(str(item.xpath("./description/text()"))[2:-2])
             self.conn.add_data(name, title, date, link, desc)
             yield title, date, link, desc
-                     
+            
+    def tables_creation(self, url, name):
+        name=name.replace(' ', '_').replace('-','')
+        self.conn.create_table(name)
+        self.conn.url_tracker(url, name)
+        
     def run(self) -> str:
         """Prints RSS output right in the teminal
         Gets content from URL, 
         parsing for elements and gives and output"""
         feedname=self.feed.xpath(".//title/text()")[0]
-        self.conn.create_table(feedname)
+        self.tables_creation(self.url,feedname)
         print('Feed: ', feedname)
         for item in self.feed_extraction(self.feed, feedname):
             print('\nTitle:', item[0])

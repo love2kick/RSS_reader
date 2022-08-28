@@ -26,7 +26,8 @@ class Connector:
         self.dbconnection=sqlite3.connect('cache/cacheDB.db')
         
     def create_table(self, name:str):
-        name=name.replace(' ', '_')
+        '''Connects to DB and creates table with feed name if it's not exists'''
+        print(name)
         table=f'''CREATE TABLE IF NOT EXISTS {name}(
                 TITLE TEXT UNIQUE,
                 DATE TEXT,
@@ -37,7 +38,8 @@ class Connector:
     
     def add_data(self, name:str, title:str, 
                  date:str, link:str, desc:str):
-        name=name.replace(' ', '_')
+        '''Add rows to corresponding table using title as unique entry'''
+        name=name.replace(' ', '_').replace('-','')
         date=dateconvert(date)
         insert_data_row=(f'INSERT OR IGNORE INTO {name} VALUES (?,?,?,?)')
         with self.dbconnection as con:
@@ -46,6 +48,7 @@ class Connector:
             con.cursor().execute('Commit')
     
     def extract_tables(self) -> list:
+        '''Extracts table list from db for further parsing'''
         table_list=[]
         with self.dbconnection as con:
             con.row_factory=lambda cursor, row: row[0]
@@ -57,6 +60,7 @@ class Connector:
         return table_list
     
     def extract_data(self, lst:list, date:str):
+        '''Extracts rows in dict format from list excracted from exctract_table method'''
         date=dateconvert(date)
         with self.dbconnection as con:
             con.row_factory=dict_factory
@@ -64,3 +68,16 @@ class Connector:
             for table in lst:
                 cursor.execute(f'SELECT TITLE, LINK, DESCRIPTION FROM {table} WHERE DATE="{date}"')
                 yield cursor.fetchone()
+                
+    def url_tracker(self, url:str, name:str):
+        '''Creates helper table with pairs url-tablename'''
+        table=f'''CREATE TABLE IF NOT EXISTS url_tracker(
+                URL TEXT UNIQUE,
+                NAME TEXT);'''
+        add_row=f'INSERT OR IGNORE INTO url_tracker VALUES (?,?)'
+        url=re.sub(r"https?://(www\.)?",'', url)
+        with self.dbconnection as con:
+            cursor=con.cursor()
+            cursor.execute(table)
+            cursor.execute(add_row,
+                           (url, name))
