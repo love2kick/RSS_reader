@@ -1,7 +1,7 @@
 import pytest
 import helper
 import requests
-from dbconnector import dateconvert
+from dbconnector import dateconvert, Connector
 
 @pytest.fixture()
 def return_content(monkeypatch):
@@ -12,6 +12,13 @@ def return_content(monkeypatch):
     monkeypatch.setattr(requests, "get", 
                         lambda *args, **kwargs: MockedGet())
     
+@pytest.fixture()
+def block_db_interactions(monkeypatch):
+    
+    monkeypatch.setattr(Connector, "get", 
+                        lambda *args, **kwargs: MockedConnector())
+    
+     
 def test_request_normallink():
     '''INTERNET CONNECTION REQUIRED FOR THIS TEST'''
     assert helper.request('https://google.com') == 200
