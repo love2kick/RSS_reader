@@ -44,7 +44,7 @@ def format_helper(string) -> str:
 
 def check_url_syntax(url:str)->str:
     '''Checking url syntax and trying to fix it'''
-    logging.info(f'Checking URL...')
+    logging.info(f'Checking URL {url}...')
     try:
         if url.startswith("http")==False:
             raise Exception("Wrong url syntax!")
@@ -56,7 +56,6 @@ def check_url_syntax(url:str)->str:
 
 def xml_checker(feed):
     '''Tries to convert string to xml'''
-    logging.info(f'Scrapping data from feed...')
     logging.info(f'Checking XML structure...')
     try:
         xml=etree.fromstring(feed)
@@ -64,3 +63,6 @@ def xml_checker(feed):
     except etree.XMLSyntaxError:
         print("XML doesn't well formed.")
         raise SystemExit()
+
+#def extract_from_dict(dict):
+    
