@@ -11,7 +11,8 @@ setup(
         'requests',
         'beautifulsoup4',
         'lxml',
-        'xmltodict'
+        'xmltodict',
+        'sqlite3'
     ],
     entry_points={
         'console_scripts': ['RSS_reader=reader.rss_reader:RSSReader']

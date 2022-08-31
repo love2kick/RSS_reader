@@ -4,3 +4,4 @@ beautifulsoup4
 lxml
 xmltodict
 pytest
+sqlite3
