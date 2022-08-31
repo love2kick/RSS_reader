@@ -2,8 +2,7 @@ import pytest
 from rss_reader import RSSReader
 from lxml import etree
 import requests
-import dbconnector
-from unittest.mock import patch
+
 @pytest.fixture()
 def mocked_get(monkeypatch):
     class MockedGet():
@@ -21,22 +20,11 @@ def mocked_get(monkeypatch):
     monkeypatch.setattr(requests, "get", 
                         lambda *args, **kwargs: MockedGet())
     
-@pytest.fixture(autouse=True)
-def block_db_interactions(monkeypatch):
-    class MockedConnector():
-        def __init__(self) -> None:
-            pass
-    monkeypatch.setattr(dbconnector, "Connector", 
-                        lambda *args, **kwargs: MockedConnector())
-    
-@pytest.fixture(autouse=True)
-def block_date_convert(monkeypatch):
-    def dateconvert():
+def test_reader(monkeypatch):
+    def block_db_interactions():
         pass
-    monkeypatch.setattr(dbconnector, "dateconvert", 
-                        lambda *args, **kwargs: dateconvert())
-@patch('dbconnector.Connector')
-class TestReader():
-    def test_feed_extraction(self, mocked_get, block_db_interactions, block_date_convert):
-        for i in RSSReader().feed_extraction(etree.fromstring(requests.get().content), "name"):
+    monkeypatch.setattr('dbconnector.Connector.add_data', block_db_interactions())
+    
+    def test_feed_extraction(mocked_get):
+        for i in RSSReader.feed_extraction(etree.fromstring(requests.get().content), "name"):
             assert i==('title', 'date', 'link','desc')

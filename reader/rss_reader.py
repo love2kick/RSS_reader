@@ -32,7 +32,7 @@ class RSSReader(object):
             self.url=check_url_syntax(self.url) #checking url syntax and adding http:// if needed
             if request(self.url)==200:
                 self.feed=xml_checker(request_content(self.url))  #form xml tree from request content
-                if argums.jtype==False: #decides which output should go out depending on --json arg
+                if argums.jtype==False:
                     self.run()
                 else:
                     self.json_run()
@@ -51,7 +51,6 @@ class RSSReader(object):
             
     def tables_creation(self, url, name):
         '''Create tables if needed, adds url-feedname pair'''
-        name=name.replace(' ', '_').replace('-','')
         self.conn.create_table(name)
         self.conn.url_tracker(url, name)
         
