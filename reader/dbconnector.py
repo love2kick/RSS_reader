@@ -50,6 +50,7 @@ class Connector:
                 NAME TEXT);'''
         add_row=f'INSERT OR IGNORE INTO url_tracker VALUES (?,?)'
         url=re.sub(r"https?://(www\.)?",'', url)
+        name=name.replace(' ', '_').replace('-','')
         logging.info(f'Creating tracker entry for {name} - {url}...') 
         with self.dbconnection as con:
             cursor=con.cursor()

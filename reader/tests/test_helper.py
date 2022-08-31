@@ -1,7 +1,7 @@
 import pytest
 import helper
 import requests
-from dbconnector import dateconvert, Connector
+from dbconnector import Connector
 
 @pytest.fixture()
 def return_content(monkeypatch):
@@ -14,8 +14,9 @@ def return_content(monkeypatch):
     
 @pytest.fixture()
 def block_db_interactions(monkeypatch):
-    
-    monkeypatch.setattr(Connector, "get", 
+    class MockedConnector():
+        pass
+    monkeypatch.setattr(Connector, "__init__", 
                         lambda *args, **kwargs: MockedConnector())
     
      
@@ -38,7 +39,3 @@ def test_xml_checker():
         badxml='''<root><title>roottitle<title></root>'''
         with pytest.raises(SystemExit):
             helper.xml_checker(badxml)
-
-def test_convert_date():
-    date1="Wed, 24 Aug 2022 07:05:00 +0000"
-    assert dateconvert(date1)=='2022-08-24'
