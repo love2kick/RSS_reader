@@ -1,6 +1,6 @@
 **RSS-Reader.**
   
-_ _Usage:_ _  
+_Usage:_  
 rss_reader.py %YOUR URL% OPTIONS  
   
 _ _options:_ _  
@@ -9,25 +9,16 @@ _ _options:_ _
   --json         Print result as JSON in stdout  
   --verbose      Outputs verbose status messages  
   --limit LIMIT  Limit news topics if this parameter provided  
-  
-_ _JSON structure:_ _  
-{  
-    "content": {  
-        "feed": "%FeedName%",  
-        "items": {  
-            "item_%NUM%": {  
-                "title": "%title%",  
-                "date": "%date%",  
-                "link": "%link%",  
-                "description": "%desc%"  
-            },  
-        }  
-    }  
-}  
+  --date         Provides content cached previous. Can be used with url.  
 
-Unitests provided by pytest. To run test run pytest tests.  
+ _JSON structure:_   
+example/example.json  
+  
+Unitests provided by pytest.  
+To run tests: _run pytest tests_   
   
 Installation:  
-Run _ _pip install ._ _  
+Simple installation: _pip install ._    
+Test installation: _python setup.py test_  
   
 After installation you can run RSS_reader %OPTIONS% from console.

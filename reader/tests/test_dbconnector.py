@@ -9,7 +9,7 @@ def test_convert_date():
     
 class Test_db_interactions():
     conn=Connector()
-    test_table='TEST_TABLE'
+    test_table='TESTTABLE'
     url='https://www.TEST'
     title='TestTitle'
     date="Wed, 10 May 1945 07:05:00 +0000"

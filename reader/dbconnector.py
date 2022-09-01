@@ -2,20 +2,35 @@ from contextlib import contextmanager
 from datetime import datetime
 from email import generator
 import sqlite3
-import os
+import os, sys
 import re
 import logging
+import string
 
 def dateconvert(date):
     '''Converts date from feed and argument to database format'''
-    if re.match('^[a-zA-Z]+.*', date):
-        date=date[5:-15]
-        date=datetime.strptime(date,'%d %b %Y').strftime('%Y-%m-%d')
-        return date
-    else:
-        date=datetime.strptime(date,'%Y%m%d').strftime('%Y-%m-%d')
-        return date
+    try:
+        logging.info(f'Converting date...')
+        if re.match('^[a-zA-Z]+.*', date):
+            date=date[5:-15]
+            date=datetime.strptime(date,'%d %b %Y').strftime('%Y-%m-%d')
+            return date
+        else:
+            date=datetime.strptime(date,'%Y%m%d').strftime('%Y-%m-%d')
+            return date
+    except ValueError:
+        print('Wrong date format!')
+        raise SystemExit()
     
+def remove_special_chars(name):
+    '''Removes special chars from feed name
+    in order to create table / extract data from it'''
+    logging.info(f'Converting feedname...')
+    chars=re.escape(string.punctuation)
+    name=re.sub(r'['+chars+']', '',name)
+    name=name.replace(' ', '_')
+    return name
+     
 def dict_factory(cursor, row):
     '''Small function for providing proper row outputs in db'''
     d = {}
@@ -27,13 +42,16 @@ class Connector:
     '''Methods of this class are for db interactions.
     They are strongly relying on class initialization.'''
     def __init__(self):
-        if os.path.exists('./cache')==False:
-            os.mkdir('./cache')
-        self.dbconnection=sqlite3.connect('cache/cacheDB.db')
+        dbpath=os.path.join(os.path.dirname(__file__), "cache")
+        if os.path.exists(dbpath)==False:
+            logging.info(f'Creating cache directory...') 
+            os.mkdir(dbpath)
+        logging.info(f'Creating and connecting to database...') 
+        self.dbconnection=sqlite3.connect(os.path.join(dbpath, 'cacheDB.db'))
         
     def create_table(self, name:str):
         '''Connects to DB and creates table with feed name if it's not exists'''
-        name=name.replace(' ', '_').replace('-','')
+        name=remove_special_chars(name)
         create_table=f'''CREATE TABLE IF NOT EXISTS {name}(
                 TITLE TEXT UNIQUE,
                 DATE TEXT,
@@ -49,8 +67,9 @@ class Connector:
                 URL TEXT UNIQUE,
                 NAME TEXT);'''
         add_row=f'INSERT OR IGNORE INTO url_tracker VALUES (?,?)'
+        logging.info(f'Stripping url...')
         url=re.sub(r"https?://(www\.)?",'', url)
-        name=name.replace(' ', '_').replace('-','')
+        name=remove_special_chars(name)
         logging.info(f'Creating tracker entry for {name} - {url}...') 
         with self.dbconnection as con:
             cursor=con.cursor()
@@ -62,7 +81,7 @@ class Connector:
     def add_data(self, name:str, title:str, 
                  date:str, link:str, desc:str):
         '''Add rows to corresponding table using title as unique entry'''
-        name=name.replace(' ', '_').replace('-','')
+        name=remove_special_chars(name)
         date=dateconvert(date)
         insert_data_row=(f'INSERT OR IGNORE INTO {name} VALUES (?,?,?,?)')
         logging.info(f'Creating entries for {name} table...') 
