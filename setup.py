@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='fancy_rss_reader',
-    version='0.3',
+    version='0.4',
     description='Fancy RSS-reader',
     author='DB',
     packages=find_packages(exclude=['tests']),
@@ -12,7 +12,6 @@ setup(
         'beautifulsoup4',
         'lxml',
         'xmltodict',
-        'sqlite3'
     ],
     entry_points={
         'console_scripts': ['RSS_reader=reader.rss_reader:RSSReader']
