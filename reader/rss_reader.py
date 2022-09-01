@@ -54,27 +54,39 @@ class RSSReader(object):
         self.conn.create_table(name)
         self.conn.url_tracker(url, name)
         
+    def xml_to_dict(self):
+        feedname=self.feed.xpath(".//title/text()")[0]
+        self.tables_creation(self.url, feedname)
+        xmlstr=('<content><feed>'+
+                feedname+
+                '</feed><items>')   #form new xml string from tree
+        i=0
+        for item in self.feed_extraction(self.feed, feedname):     #further reassembling xml
+            xmlstr+=(f'<item{i}>'+
+                        '<TITLE>'+item[0]+'</TITLE>'+
+                        '<DATE>'+item[1]+'</DATE>'+
+                        '<LINK>'+item[2]+'</LINK>'+
+                        '<DESCRIPTION>'+item[3]+'</DESCRIPTION>'+
+                        f'</item{i}>')
+            i+=1
+        xmlstr+='</items></content>'
+        logging.info(f'Converting xml into json...')
+        result_dict=xmltodict.parse(xmlstr)    
+        return result_dict
+    
     def run(self, entry_dict=None) -> sys.stdout:
         """Prints RSS output right in the teminal
         Gets content from URL, 
         parsing for elements and gives and output"""
         if entry_dict==None:
-            feedname=self.feed.xpath(".//title/text()")[0]
-            self.tables_creation(self.url,feedname)
-            print('Feed: ', feedname)
-            for item in self.feed_extraction(self.feed, feedname):
-                print('\nTitle:', item[0])
-                print('Date:', item[1])
-                print('Link:', item[2])
-                print('Description:', item[3])
-        else:
-            print(entry_dict['content']['feed'])
-            items=entry_dict['content']['items']
-            for item in items:
-                print('\nTitle', items[item]['TITLE'])
-                print('Date:', items[item]['DATE'])
-                print('Link:', items[item]['LINK'])
-                print('Description:', items[item]['DESCRIPTION'])
+            entry_dict=self.xml_to_dict()
+        print(entry_dict['content']['feed'])
+        items=entry_dict['content']['items']
+        for item in items:
+            print('\nTitle', items[item]['TITLE'])
+            print('Date:', items[item]['DATE'])
+            print('Link:', items[item]['LINK'])
+            print('Description:', items[item]['DESCRIPTION'])
             
         logging.info(f'Finished!')
             
@@ -82,23 +94,7 @@ class RSSReader(object):
         """Creates a dictionary from content and creates a dictionary
         that convertes into json file"""
         if entry_dict==None:
-            feedname=self.feed.xpath(".//title/text()")[0]
-            self.conn.create_table(feedname)
-            xmlstr=('<content><feed>'+
-                    feedname+
-                    '</feed><items>')   #form new xml string from tree
-            i=0
-            for item in self.feed_extraction(self.feed, feedname):     #further reassembling xml
-                xmlstr+=(f'<item_{i}>'+
-                            '<title>'+item[0]+'</title>'+
-                            '<date>'+item[1]+'</date>'+
-                            '<link>'+item[2]+'</link>'+
-                            '<description>'+item[3]+'</description>'+
-                            f'</item_{i}>')
-                i+=1
-            xmlstr+='</items></content>'
-            logging.info(f'Converting xml into json...')
-            result_dict=xmltodict.parse(xmlstr)
+            result_dict=self.xml_to_dict()
         else:
             result_dict=entry_dict
         jdict=json.dumps(result_dict, indent = 4)
