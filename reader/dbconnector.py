@@ -2,7 +2,7 @@ from contextlib import contextmanager
 from datetime import datetime
 from email import generator
 import sqlite3
-import os
+import os, sys
 import re
 import logging
 import string
@@ -36,9 +36,10 @@ class Connector:
     '''Methods of this class are for db interactions.
     They are strongly relying on class initialization.'''
     def __init__(self):
-        if os.path.exists('./cache')==False:
-            os.mkdir('./cache')
-        self.dbconnection=sqlite3.connect('cache/cacheDB.db')
+        dbpath=os.path.join(os.path.dirname(__file__), "cache")
+        if os.path.exists(dbpath)==False:
+            os.mkdir(dbpath)
+        self.dbconnection=sqlite3.connect(os.path.join(dbpath, 'cacheDB.db'))
         
     def create_table(self, name:str):
         '''Connects to DB and creates table with feed name if it's not exists'''
