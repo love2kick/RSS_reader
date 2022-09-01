@@ -5,6 +5,7 @@ import sqlite3
 import os
 import re
 import logging
+import string
 
 def dateconvert(date):
     '''Converts date from feed and argument to database format'''
@@ -16,6 +17,14 @@ def dateconvert(date):
         date=datetime.strptime(date,'%Y%m%d').strftime('%Y-%m-%d')
         return date
     
+def remove_special_chars(name):
+    '''Removes special chars from feed name
+    in order to create table / extract data from it'''
+    chars=re.escape(string.punctuation)
+    name=re.sub(r'['+chars+']', '',name)
+    name=name.replace(' ', '_')
+    return name
+     
 def dict_factory(cursor, row):
     '''Small function for providing proper row outputs in db'''
     d = {}
@@ -33,7 +42,7 @@ class Connector:
         
     def create_table(self, name:str):
         '''Connects to DB and creates table with feed name if it's not exists'''
-        name=name.replace(' ', '_').replace('-','')
+        name=remove_special_chars(name)
         create_table=f'''CREATE TABLE IF NOT EXISTS {name}(
                 TITLE TEXT UNIQUE,
                 DATE TEXT,
@@ -50,7 +59,7 @@ class Connector:
                 NAME TEXT);'''
         add_row=f'INSERT OR IGNORE INTO url_tracker VALUES (?,?)'
         url=re.sub(r"https?://(www\.)?",'', url)
-        name=name.replace(' ', '_').replace('-','')
+        name=remove_special_chars(name)
         logging.info(f'Creating tracker entry for {name} - {url}...') 
         with self.dbconnection as con:
             cursor=con.cursor()
@@ -62,7 +71,7 @@ class Connector:
     def add_data(self, name:str, title:str, 
                  date:str, link:str, desc:str):
         '''Add rows to corresponding table using title as unique entry'''
-        name=name.replace(' ', '_').replace('-','')
+        name=remove_special_chars(name)
         date=dateconvert(date)
         insert_data_row=(f'INSERT OR IGNORE INTO {name} VALUES (?,?,?,?)')
         logging.info(f'Creating entries for {name} table...') 

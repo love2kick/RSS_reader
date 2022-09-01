@@ -1,0 +1,13 @@
+{  
+    "content": {  
+        "feed": ["%FeedName%"],  
+        "items": {  
+            "item%NUM%": {  
+                "title": "%title%",  
+                "date": "%date%",  
+                "link": "%link%",  
+                "description": "%desc%"  
+            }  
+        }  
+    }  
+}  

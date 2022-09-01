@@ -54,14 +54,15 @@ class RSSReader(object):
         self.conn.create_table(name)
         self.conn.url_tracker(url, name)
         
-    def xml_to_dict(self):
-        feedname=self.feed.xpath(".//title/text()")[0]
+    def xml_to_dict(self, feed):
+        '''Creates a dictionary from xml string'''
+        feedname=feed.xpath(".//title/text()")[0]
         self.tables_creation(self.url, feedname)
         xmlstr=('<content><feed>'+
                 feedname+
                 '</feed><items>')   #form new xml string from tree
         i=0
-        for item in self.feed_extraction(self.feed, feedname):     #further reassembling xml
+        for item in self.feed_extraction(feed, feedname):     #further reassembling xml
             xmlstr+=(f'<item{i}>'+
                         '<TITLE>'+item[0]+'</TITLE>'+
                         '<DATE>'+item[1]+'</DATE>'+
@@ -79,11 +80,11 @@ class RSSReader(object):
         Gets content from URL, 
         parsing for elements and gives and output"""
         if entry_dict==None:
-            entry_dict=self.xml_to_dict()
+            entry_dict=self.xml_to_dict(self.feed)
         print(entry_dict['content']['feed'])
         items=entry_dict['content']['items']
         for item in items:
-            print('\nTitle', items[item]['TITLE'])
+            print('\nTitle:', items[item]['TITLE'])
             print('Date:', items[item]['DATE'])
             print('Link:', items[item]['LINK'])
             print('Description:', items[item]['DESCRIPTION'])
@@ -94,7 +95,7 @@ class RSSReader(object):
         """Creates a dictionary from content and creates a dictionary
         that convertes into json file"""
         if entry_dict==None:
-            result_dict=self.xml_to_dict()
+            result_dict=self.xml_to_dict(self.feed)
         else:
             result_dict=entry_dict
         jdict=json.dumps(result_dict, indent = 4)
