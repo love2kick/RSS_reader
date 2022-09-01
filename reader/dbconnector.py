@@ -9,17 +9,23 @@ import string
 
 def dateconvert(date):
     '''Converts date from feed and argument to database format'''
-    if re.match('^[a-zA-Z]+.*', date):
-        date=date[5:-15]
-        date=datetime.strptime(date,'%d %b %Y').strftime('%Y-%m-%d')
-        return date
-    else:
-        date=datetime.strptime(date,'%Y%m%d').strftime('%Y-%m-%d')
-        return date
+    try:
+        logging.info(f'Converting date...')
+        if re.match('^[a-zA-Z]+.*', date):
+            date=date[5:-15]
+            date=datetime.strptime(date,'%d %b %Y').strftime('%Y-%m-%d')
+            return date
+        else:
+            date=datetime.strptime(date,'%Y%m%d').strftime('%Y-%m-%d')
+            return date
+    except ValueError:
+        print('Wrong date format!')
+        raise SystemExit()
     
 def remove_special_chars(name):
     '''Removes special chars from feed name
     in order to create table / extract data from it'''
+    logging.info(f'Converting feedname...')
     chars=re.escape(string.punctuation)
     name=re.sub(r'['+chars+']', '',name)
     name=name.replace(' ', '_')
@@ -38,7 +44,9 @@ class Connector:
     def __init__(self):
         dbpath=os.path.join(os.path.dirname(__file__), "cache")
         if os.path.exists(dbpath)==False:
+            logging.info(f'Creating cache directory...') 
             os.mkdir(dbpath)
+        logging.info(f'Creating and connecting to database...') 
         self.dbconnection=sqlite3.connect(os.path.join(dbpath, 'cacheDB.db'))
         
     def create_table(self, name:str):
@@ -59,6 +67,7 @@ class Connector:
                 URL TEXT UNIQUE,
                 NAME TEXT);'''
         add_row=f'INSERT OR IGNORE INTO url_tracker VALUES (?,?)'
+        logging.info(f'Stripping url...')
         url=re.sub(r"https?://(www\.)?",'', url)
         name=remove_special_chars(name)
         logging.info(f'Creating tracker entry for {name} - {url}...') 
