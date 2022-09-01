@@ -63,6 +63,3 @@ def xml_checker(feed):
     except etree.XMLSyntaxError:
         print("XML doesn't well formed.")
         raise SystemExit()
-
-#def extract_from_dict(dict):
-    
