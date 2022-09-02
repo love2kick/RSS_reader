@@ -2,11 +2,14 @@ import argparse
 import logging
 import warnings
 import sys
-url:str
-limit=None
-verb=False
-jtype=False
-date=None
+url: str
+limit = None
+verb = False
+jtype = False
+date = None
+html = False
+
+
 def arguments() -> None:
     """Arguments for this peace of software:
         URL a mandatory arg for source url
@@ -27,17 +30,22 @@ def arguments() -> None:
                         help='Limit news topics if this parameter provided')
     parser.add_argument('--date', metavar='DATE', action='store', type=str,
                         help='Provides cached items with corresponding date')
+    parser.add_argument('--to-html', action='store_true',
+                        help='Creates html file with a content in media dir')
     args = parser.parse_args()
     global url
-    url=args.URL
+    url = args.URL
     global limit
-    limit=args.limit
+    limit = args.limit
     if args.date:
         global date
-        date=args.date
+        date = args.date
     if args.json:
         global jtype
         jtype = True
+    if args.to_html:
+        global html
+        html = True
     if args.verbose:
         logging.basicConfig(level=logging.INFO)
     else:
