@@ -14,7 +14,6 @@ import reader.argums as argums
 from reader.dbconnector import Connector
 
 
-
 argums.arguments()
 
 
@@ -137,8 +136,7 @@ class RSSReader(object):
                         result_list.append(item)
             for dictionary, i in zip(result_list, range(len(result_list))):
                 if i != self.limit:
-                    result_dict['content']['items'].update(
-                        {f'item{i}': dictionary})
+                    result_dict['content']['items'].update({f'item{i}': dictionary})
             return result_dict
 
 

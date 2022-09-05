@@ -8,7 +8,7 @@ verb = False
 jtype = False
 date = None
 html = False
-
+pdf = False
 
 def arguments() -> None:
     """Arguments for this peace of software:
@@ -31,7 +31,9 @@ def arguments() -> None:
     parser.add_argument('--date', metavar='DATE', action='store', type=str,
                         help='Provides cached items with corresponding date')
     parser.add_argument('--to-html', action='store_true',
-                        help='Creates html file with a content in media dir')
+                        help='Creates an html file with a content in media dir')
+    parser.add_argument('--to-pdf', action='store_true',
+                        help='Creates a pdf file with a content in media dir')
     args = parser.parse_args()
     global url
     url = args.URL
@@ -46,6 +48,9 @@ def arguments() -> None:
     if args.to_html:
         global html
         html = True
+    if args.to_pdf:
+        global pdf
+        pdf = True
     if args.verbose:
         logging.basicConfig(level=logging.INFO)
     else:
