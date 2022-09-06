@@ -34,24 +34,13 @@ def convert_to_html(entry_dict):
             ),
         'wb') as o:
         o.write(ET.tostring(result_html, pretty_print=True))
-
-def convert_to_pdf(entry_dict):
-    pdfpath = os.path.join(media_path,
-                           f'./{entry_dict["content"]["feed"][0]}.pdf')
-    pass
-    
+        
 class PDF_converter(object):
-    """"""
-    #----------------------------------------------------------------------
+    
     def __init__(self, entry_dict):
-        """Constructor"""
-        self.entry_dict = entry_dict
-        self.pdf_file = os.path.join(media_path,
-                           f'./{entry_dict["content"]["feed"][0]}.pdf')
+        self.dict=entry_dict
+        self.converter()
         
-        self.xml = convert_to_xml(entry_dict)
-        
-    #----------------------------------------------------------------------
     def coord(self, x, y, unit=1):
         """
         # http://stackoverflow.com/questions/4726011/wrap-text-in-a-table-reportlab
@@ -60,14 +49,30 @@ class PDF_converter(object):
         x, y = x * unit, self.height -  y * unit
         return x, y  
         
-    #----------------------------------------------------------------------
+    def converter(self):
+        feedname=self.dict["content"]["feed"][0]
+        width, height = letter
+        pdfpath = os.path.join(media_path,
+                            f'./{feedname}.pdf')
+        xml = convert_to_xml(self.dict)
+        canv = canvas.Canvas(pdfpath, pagesize=letter)
+        styles = getSampleStyleSheet()
+        feedpara=f'''<font size="12">
+                    Feed: {feedname}
+                    </font>'''
+        paraname = Paragraph(feedpara, styles["Normal"])
+        paraname.wrapOn(canv, width, height)
+        paraname.drawOn
+    
+    
+    
     def createPDF(self):
         """
         Create a PDF based on the XML data
         """
         self.canvas = canvas.Canvas(self.pdf_file, pagesize=letter)
-        width, self.height = letter
-        styles = getSampleStyleSheet()
+        width, height = letter
+        
         xml = self.xml
         
         feedname = """ <font size="12">
@@ -110,9 +115,5 @@ class PDF_converter(object):
         p.wrapOn(self.canvas, width, self.height)
         p.drawOn(self.canvas, *self.coord(18, 95, mm))
     
-    #----------------------------------------------------------------------
-    def savePDF(self):
-        """
-        Save the PDF to disk
-        """
+    #---------------------------------------------------------------------
         self.canvas.save()
