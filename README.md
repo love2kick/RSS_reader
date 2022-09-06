@@ -10,7 +10,9 @@ _ _options:_ _
   --verbose      Outputs verbose status messages  
   --limit LIMIT  Limit news topics if this parameter provided  
   --date         Provides content cached previously. Can be used with url.  
-
+  --to-html      Creates an output .html file    
+  --to-pdf       Creates an output .pdf file  
+  
  _JSON structure:_   
 example/example.json  
   

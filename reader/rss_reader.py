@@ -9,10 +9,9 @@ from reader.helper import (request, request_content,
 import xmltodict
 import json
 import logging
-from reader.converter import convert_to_html
+from reader.converter import convert_to_html, PDF_converter
 import reader.argums as argums
 from reader.dbconnector import Connector
-
 
 
 argums.arguments()
@@ -99,6 +98,8 @@ class RSSReader(object):
             print('Description:', items[item]['DESCRIPTION'])
         if argums.html == True:
             convert_to_html(entry_dict)
+        if argums.pdf == True:
+            PDF_converter(entry_dict)
         logging.info(f'Finished!')
 
     def json_run(self, entry_dict=None) -> sys.stdout:
@@ -112,6 +113,8 @@ class RSSReader(object):
         print(jdict)
         if argums.html == True:
             convert_to_html(result_dict)
+        if argums.pdf == True:
+            PDF_converter(result_dict)
         logging.info(f'Finished!')
 
     def extract_from_db(self, date):
@@ -137,8 +140,7 @@ class RSSReader(object):
                         result_list.append(item)
             for dictionary, i in zip(result_list, range(len(result_list))):
                 if i != self.limit:
-                    result_dict['content']['items'].update(
-                        {f'item{i}': dictionary})
+                    result_dict['content']['items'].update({f'item{i}': dictionary})
             return result_dict
 
 
