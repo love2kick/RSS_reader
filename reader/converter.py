@@ -2,10 +2,8 @@ from dict2xml import dict2xml
 import lxml.etree as ET
 import os
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table
-from reportlab.lib.enums import TA_LEFT
-from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, Spacer
 
 
 media_path = os.path.join(os.path.dirname(__file__), "media")
@@ -54,21 +52,23 @@ class PDF_converter(object):
         tbl_name = [[paraname]]
         tbl = Table(tbl_name, spaceAfter=10)
         content.append(tbl)
+        tbl_data = []
         for item in items:
-            tbl_data = []
-            title = f'''<font size="10">Title: {items[item]['TITLE']}</font>'''
+            title = f'''<font size="10"><i>Title:</i> {items[item]['TITLE']}</font>'''
             paratitle = Paragraph(title, styles["Normal"])
             tbl_data.append([paratitle])
-            date = f'''<font size="10">Date: {items[item]['DATE']}</font>'''
+            date = f'''<font size="10"><i>Date:</i> {items[item]['DATE']}</font>'''
             paradate = Paragraph(date, styles["Normal"])
             tbl_data.append([paradate])
-            link = f'''<font size="10">Link: {items[item]['LINK']}</font>'''
+            link = f'''<font size="10"><i>Link:</i> {items[item]['LINK']}</font>'''
             paralink = Paragraph(link, styles["Normal"])
             tbl_data.append([paralink])
-            desc = f'''<font size="10">Description: {items[item]['DESCRIPTION']}</font>'''
+            desc = f'''<font size="10"><i>Description:</i></font> <font size="8">{items[item]['DESCRIPTION']}</font>'''
             paradesc = Paragraph(desc, styles["Normal"])
             tbl_data.append([paradesc])
-            tbl = Table(tbl_data, spaceAfter=10)
-            content.append(tbl)
+            spacer = Spacer(letter[0]-150, 20)
+            tbl_data.append([spacer])
+        tbl = Table(tbl_data, vAlign='Center', spaceAfter=10)
+        content.append(tbl)
 
         doc.build(content)
