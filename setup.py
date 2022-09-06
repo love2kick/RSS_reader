@@ -12,6 +12,8 @@ setup(
         'beautifulsoup4',
         'lxml',
         'xmltodict',
+        'dict2xml',
+        'reportlab'
     ],
     entry_points={
         'console_scripts': ['RSS_reader=reader.rss_reader:RSSReader']
