@@ -1,14 +1,11 @@
 from dict2xml import dict2xml
 import lxml.etree as ET
-from lxml import objectify
 import os
-from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.units import inch, mm
-from reportlab.pdfgen import canvas
-from reportlab.platypus import Paragraph, Table, TableStyle
-from decimal import Decimal
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table
+from reportlab.lib.enums import TA_LEFT
+from reportlab.lib import colors
 
 
 media_path = os.path.join(os.path.dirname(__file__), "media")
@@ -28,92 +25,50 @@ def convert_to_html(entry_dict):
     transform = ET.XSLT(xslt)
     result_html = transform(xml)
     with open(
-        os.path.join(
-            media_path, 
-            f'{entry_dict["content"]["feed"][0]}.html'
+            os.path.join(
+                media_path,
+                f'{entry_dict["content"]["feed"]}.html'
             ),
-        'wb') as o:
+            'wb') as o:
         o.write(ET.tostring(result_html, pretty_print=True))
-        
+
+
 class PDF_converter(object):
-    
+
     def __init__(self, entry_dict):
-        self.dict=entry_dict
+        self.dict = entry_dict
         self.converter()
-        
-    def coord(self, x, y, unit=1):
-        """
-        # http://stackoverflow.com/questions/4726011/wrap-text-in-a-table-reportlab
-        Helper class to help position flowables in Canvas objects
-        """
-        x, y = x * unit, self.height -  y * unit
-        return x, y  
-        
+
     def converter(self):
-        feedname=self.dict["content"]["feed"][0]
-        width, height = letter
+        feedname = self.dict["content"]["feed"]
         pdfpath = os.path.join(media_path,
-                            f'./{feedname}.pdf')
-        xml = convert_to_xml(self.dict)
-        canv = canvas.Canvas(pdfpath, pagesize=letter)
+                               f'./{feedname}.pdf')
+        doc = SimpleDocTemplate(pdfpath, pagesize=letter)
         styles = getSampleStyleSheet()
-        feedpara=f'''<font size="12">
+        content = []
+        feedpara = f'''<font size="12"><b>
                     Feed: {feedname}
-                    </font>'''
+                    </b></font>'''
         paraname = Paragraph(feedpara, styles["Normal"])
-        paraname.wrapOn(canv, width, height)
-        paraname.drawOn
-    
-    
-    
-    def createPDF(self):
-        """
-        Create a PDF based on the XML data
-        """
-        self.canvas = canvas.Canvas(self.pdf_file, pagesize=letter)
-        width, height = letter
-        
-        xml = self.xml
-        
-        feedname = """ <font size="12">
-        Feedname:%s<br>
-        </font>
-        """ % (xml.address1, xml.address2, xml.address3, xml.address4)
-        p = Paragraph(feedname, styles["Normal"])
-        p.wrapOn(self.canvas, width, self.height)
-        p.drawOn(self.canvas, *self.coord(18, 40, mm))
-        
-        order_number = '<font size="14"><b>Order #%s </b></font>' % xml.order_number
-        p = Paragraph(order_number, styles["Normal"])
-        p.wrapOn(self.canvas, width, self.height)
-        p.drawOn(self.canvas, *self.coord(18, 52, mm))
-        
-        data = []
-        data.append(["Item ID", "Name", "Price", "Quantity", "Total"])
-        grand_total = 0
-        for item in xml.order_items.iterchildren():
-            row = []
-            row.append(item.id)
-            row.append(item.name)
-            row.append(item.price)
-            row.append(item.quantity)
-            total = Decimal(str(item.price)) * Decimal(str(item.quantity))
-            row.append(str(total))
-            grand_total += total
-            data.append(row)
-        data.append(["", "", "", "Grand Total:", grand_total])
-        t = Table(data, 1.5 * inch)
-        t.setStyle(TableStyle([
-            ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
-            ('BOX', (0,0), (-1,-1), 0.25, colors.black)
-        ]))
-        t.wrapOn(self.canvas, width, self.height)
-        t.drawOn(self.canvas, *self.coord(18, 85, mm))
-        
-        txt = "Thank you for your business!"
-        p = Paragraph(txt, styles["Normal"])
-        p.wrapOn(self.canvas, width, self.height)
-        p.drawOn(self.canvas, *self.coord(18, 95, mm))
-    
-    #---------------------------------------------------------------------
-        self.canvas.save()
+        items = self.dict['content']['items']
+        tbl_name = [[paraname]]
+        tbl = Table(tbl_name, spaceAfter=10)
+        content.append(tbl)
+        for item in items:
+            tbl_data = []
+            title = f'''<font size="10">Title: {items[item]['TITLE']}</font>'''
+            paratitle = Paragraph(title, styles["Normal"])
+            tbl_data.append([paratitle])
+            date = f'''<font size="10">Date: {items[item]['DATE']}</font>'''
+            paradate = Paragraph(date, styles["Normal"])
+            tbl_data.append([paradate])
+            link = f'''<font size="10">Link: {items[item]['LINK']}</font>'''
+            paralink = Paragraph(link, styles["Normal"])
+            tbl_data.append([paralink])
+            desc = f'''<font size="10">Description: {items[item]['DESCRIPTION']}</font>'''
+            paradesc = Paragraph(desc, styles["Normal"])
+            tbl_data.append([paradesc])
+            tbl = Table(tbl_data, spaceAfter=10)
+            content.append(tbl)
+
+        doc.build(content)
