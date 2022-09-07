@@ -1,9 +1,11 @@
-**RSS-Reader.**
+# RSS-Reader  
+Fancy RSS_reader is a peace of garbage that i made as an ultimate task to waste a lot of time and learn some software gore.   
+It can check feed from url provided by user and return some common info from those pesky feeds. 
   
-_Usage:_  
+## Usage:  
 rss_reader.py %YOUR URL% OPTIONS  
   
-_ _options:_ _  
+**options:**  
   -h, --help     show this help message and exit  
   --version      Print version info  
   --json         Print result as JSON in stdout  
@@ -16,16 +18,13 @@ _ _options:_ _
 _JSON structure:_   
 example/example.json  
   
-Installation:  
-Simple installation: _pip install -e ._    
+## Installation:  
+Simple installation: _pip install ._    
 Run tests: _python setup.py test_  
 
 After installation you can run RSS_reader %OPTIONS% from console (May require sudo permissions.  ).    
    
-Fancy RSS_reader is a peace of garbage that i made as an ultimate task to waste a lot of time and learn some software gore.   
-It can check feed from url provided by user and return some common info from those pesky feeds.  
-  
-**Features:**  
+## Features:   
 It can return feed content (Feedname, Title of article, date, link and short description) in two formats: simply prints in your console or return you a faboulous json.  
 It can also cache all this stuff and you can access it anytime by adding --date %Y%m%d and receive those wonderful articles back from SQLite database.  
 Verbose option will provide you an ultimate experience of sentient software that speaks the human language. 
