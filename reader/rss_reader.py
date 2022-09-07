@@ -121,27 +121,44 @@ class RSSReader(object):
         '''Extracts data from db as dictionary'''
         result_dict = {'content': {'feed': None, 'items': {}}}
         if self.url != None:
-            name_from_url = self.conn.extract_feed_fromurl(self.url)
-            for item_list in self.conn.extract_data(name_from_url[0], date):
-                result_dict['content']['feed'] = name_from_url[0]
-                for item, i in zip(item_list, range(len(item_list))):
-                    if i != self.limit:
-                        result_dict['content']['items'].update(
-                            {f'item{i}': item})
-            return result_dict
+            try:
+                name_from_url = self.conn.extract_feed_fromurl(self.url)
+                for item_list in self.conn.extract_data(name_from_url[0], date):
+                    result_dict['content']['feed'] = name_from_url[0]
+                    if len(item_list)!=0:
+                        for item, i in zip(item_list, range(len(item_list))):
+                            if i != self.limit:
+                                result_dict['content']['items'].update(
+                                    {f'item{i}': item})
+                        else:
+                            raise ValueError('No items in list')
+                return result_dict
+            except ValueError:
+                print(f'No articles found for {name_from_url[0]} {date}.')
+                raise SystemExit()
+            except TypeError:
+                print(f'No such entry for {self.url}')
+                raise SystemExit()
         else:
             tables = self.conn.extract_tables()
             result_dict['content']['feed'] = []
             result_list = []
-            for item_list, table in zip(self.conn.extract_data(tables, date), tables):
-                if item_list != None and item_list != []:
-                    result_dict['content']['feed'].append(table)
-                    for item in item_list:
-                        result_list.append(item)
-            for dictionary, i in zip(result_list, range(len(result_list))):
-                if i != self.limit:
-                    result_dict['content']['items'].update({f'item{i}': dictionary})
-            return result_dict
+            try:
+                for item_list, table in zip(self.conn.extract_data(tables, date), tables):
+                    if item_list != None and item_list != []:
+                        result_dict['content']['feed'].append(table)
+                        for item in item_list:
+                            result_list.append(item)
+                if len(result_list)!=0:
+                    for dictionary, i in zip(result_list, range(len(result_list))):
+                        if i != self.limit:
+                            result_dict['content']['items'].update({f'item{i}': dictionary})
+                    return result_dict
+                else:
+                    raise ValueError('No items in list')
+            except ValueError:
+                print(f'No articles found for {date}.')
+                raise SystemExit()
 
 
 if __name__ == "__main__":
