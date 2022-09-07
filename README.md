@@ -17,10 +17,10 @@ _JSON structure:_
 example/example.json  
   
 Installation:  
-Simple installation: _pip install ._    
+Simple installation: _pip install -e ._    
 Run tests: _python setup.py test_  
-  
-After installation you can run RSS_reader %OPTIONS% from console.  
+
+After installation you can run RSS_reader %OPTIONS% from console (May require sudo permissions.  ).    
    
 Fancy RSS_reader is a peace of garbage that i made as an ultimate task to waste a lot of time and learn some software gore.   
 It can check feed from url provided by user and return some common info from those pesky feeds.  
