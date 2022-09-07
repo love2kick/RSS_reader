@@ -27,10 +27,10 @@ def convert_to_html(entry_dict):
     logging.info(f'Saving html file...')
     with open(
             os.path.join(
-                media_path,
-                f'{entry_dict["content"]["feed"]}.html'
-            ),
-            'wb') as o:
+                        media_path,
+                        f'{entry_dict["content"]["feed"]}.html'
+                        ),
+                'wb') as o:
         o.write(ET.tostring(result_html, pretty_print=True))
 
 
@@ -42,7 +42,7 @@ class PDF_converter(object):
 
     def converter(self):
         '''Creates a really huge table from result dictionary
-        Has restrictions: cell shouldn't be bigger than page size'''
+        Restrictions: cell shouldn't be bigger than page size'''
         logging.info(f'Converting dictionary into pdf...')
         feedname = self.dict["content"]["feed"]
         pdfpath = os.path.join(media_path,
