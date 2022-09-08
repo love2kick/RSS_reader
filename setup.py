@@ -6,6 +6,10 @@ setup(
     description='Fancy RSS-reader',
     author='DB',
     packages=find_packages(exclude=['tests']),
+    include_package_data = True,
+    package_data = {
+    'static': ['*.xsl'],
+    },
     install_requires=[
         'argparse',
         'requests',
