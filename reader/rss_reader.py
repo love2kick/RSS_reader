@@ -130,8 +130,8 @@ class RSSReader(object):
                             if i != self.limit:
                                 result_dict['content']['items'].update(
                                     {f'item{i}': item})
-                        else:
-                            raise ValueError('No items in list')
+                    else:
+                        raise ValueError('No items in list')
                 return result_dict
             except ValueError:
                 print(f'No articles found for {name_from_url[0]} {date}.')
